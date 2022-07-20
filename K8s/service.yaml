@@ -1,0 +1,24 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: ghcr.io/xvzup/knative_test:issue
+        command: ["/usr/local/bin/gunicorn"]
+        args: ["--bind", ":8080", "--workers", "1", "--threads", "8", "--timeout", "0", "app:app"]
+        env:
+        - name: TARGET
+          value: "Python Sample v1"
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+        
