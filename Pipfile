@@ -9,6 +9,7 @@ uvicorn = "*"
 nats-py = "*"
 gunicorn = "*"
 flask = "*"
+werkzeug = "*"
 
 [dev-packages]
 
