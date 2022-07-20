@@ -4,6 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+fastapi = "*"
+uvicorn = "*"
+nats-py = "*"
+gunicorn = "*"
+flask = "*"
+werkzeug = "*"
 
 [dev-packages]
 
