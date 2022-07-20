@@ -8,6 +8,7 @@ fastapi = "*"
 uvicorn = "*"
 nats-py = "*"
 gunicorn = "*"
+flask = "*"
 
 [dev-packages]
 
