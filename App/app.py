@@ -21,6 +21,7 @@ async def get_data(request: Request,options: Options):
 
   # Create nats notification
   nc = await nats.connect('nats.nats.svc.cluster.local')
+  #nc = await nats.connect('localhost')
   js = nc.jetstream()
   await js.add_stream(name='notification', subjects=['bob'])
   ack = await js.publish('bob', result_encode_data)
