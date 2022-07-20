@@ -28,4 +28,4 @@ async def get_data(request: Request,options: Options):
   # Close connection to nats broker
   await nc.drain()
   
-  sys.exit()
+  return
