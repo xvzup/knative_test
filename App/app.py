@@ -1,22 +1,36 @@
 #FASTAPI imports
 from fastapi import FastAPI, Request, File, UploadFile, Depends
 from pydantic import BaseModel
-#APP defination
+import asyncio
+import nats
+import json
+
 app = FastAPI()
-#Base model
 class Options (BaseModel):
   FileName: str
-  FileDesc: str = 'Upload for demonstration'
-  #FileType: Optional[str]
+
+
+async def send_nats_notification( jetstream ):
+  ack = await js.publish('bob', bytes_payload)
+  print("Writing --> ", i, " ", ack)
+  i = i + 1
+
+  await asyncio.sleep(0.2)
 
 
 #Using an asynchronous POST method for communication
-@app.post("/acceptdata")
+@app.post("/send_notification")
 async def get_data(request: Request,options: Options):
    
   #Waits for the request and converts into JSON
   result = await request.json()  
+  result_encode_data = json.dumps(result, indent=2).encode('utf-8')
+
+  # Create nats notification
+  nc = await nats.connect('nats.nats.svc.cluster.local')
+  js = nc.jetstream()
+  await js.add_stream(name='notification', subjects=['bob'])
+  ack = await js.publish('bob', result_encode_data)
+  print("Notification send ", ack)
   
-  #Prints result in cmd – verification purpose
-  print(result)
   return result

@@ -11,7 +11,7 @@ WORKDIR $APP_HOME
 COPY ./App ./
 
 # Install production dependencies.
-RUN pip install fastapi uvicorn
+RUN pip install fastapi uvicorn nats-py
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.

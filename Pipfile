@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = "*"
+nats-py = "*"
 
 [dev-packages]
 
