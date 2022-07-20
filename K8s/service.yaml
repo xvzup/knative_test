@@ -1,24 +1,20 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: hello
+  name: notification
   namespace: default
 spec:
   template:
     spec:
       containers:
-      - image: ghcr.io/xvzup/knative_test:issue
-        command: ["/usr/local/bin/gunicorn"]
-        args: ["--bind", ":8080", "--workers", "1", "--threads", "8", "--timeout", "0", "app:app"]
-        env:
-        - name: TARGET
-          value: "Python Sample v1"
+      - image: ghcr.io/xvzup/knative_test:issue2
+        command: ["uvicorn"]
+        args: ["--app-dir", "./App", "app:app", "--reload"]
         readinessProbe:
           tcpSocket:
-            port: 8080
+            port: 8000
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           tcpSocket:
-            port: 8080
-        
+            port: 8000
