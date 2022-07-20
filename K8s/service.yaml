@@ -7,20 +7,19 @@ spec:
   template:
     metadata:
       annotations:
-        #autoscaling.knative.dev/initial-scale: "0"
-        autoscaling.knative.dev/min-scale: "0"
-        autoscaling.knative.dev/scale-down-delay: "1m"
-        autoscaling.knative.dev/window: "40s"
+        # autoscaling.knative.dev/min-scale: "0"
+        # autoscaling.knative.dev/scale-down-delay: "1m"
+        # autoscaling.knative.dev/window: "40s"
     spec:
       containers:
       - image: ghcr.io/xvzup/knative_test:issue2
         imagePullPolicy: Always
-        name: fastapi
+        name: api
         ports:
-        - containerPort: 8000
+        - containerPort: 8080
           protocol: TCP
-        command: ["gunicorn"]
-        args: ["app:app", "-b", "0.0.0.0:8000", "--workers", "1", "-k", "uvicorn.workers.UvicornWorker", "--timeout", "1"]
+        # command: ["gunicorn"]
+        # args: ["example:app", "-b", "0.0.0.0:8080"]
         # readinessProbe:
         #   tcpSocket:
         #     port: 8000
