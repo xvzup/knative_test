@@ -10,7 +10,6 @@ app = FastAPI()
 class Options (BaseModel):
   FileName: str
 
-
 #Using an asynchronous POST method for communication
 @app.post("/send_notification")
 async def get_data(request: Request,options: Options):
