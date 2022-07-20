@@ -24,5 +24,7 @@ async def get_data(request: Request,options: Options):
   await js.add_stream(name='notification', subjects=['bob'])
   ack = await js.publish('bob', result_encode_data)
   print("Notification send ", ack)
+  # Close connection to nats broker
+  await nc.drain()
   
   return result
