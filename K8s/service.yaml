@@ -9,8 +9,12 @@ spec:
       containers:
       - image: ghcr.io/xvzup/knative_test:issue2
         imagePullPolicy: Always
+        name: fastapi
+        ports:
+        - containerPort: 8000
+          protocol: TCP
         command: ["uvicorn"]
-        args: ["app:app", "--reload"]
+        args: ["app:app", "--host", "0.0.0.0"]
         readinessProbe:
           tcpSocket:
             port: 8000
