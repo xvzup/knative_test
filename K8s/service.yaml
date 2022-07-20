@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-      - image: ghcr.io/xvzup/knative_test:issue2
+      - image: ghcr.io/xvzup/knative_test:master
         imagePullPolicy: Always
         name: fastapi
         ports:
