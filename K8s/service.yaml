@@ -8,8 +8,9 @@ spec:
     spec:
       containers:
       - image: ghcr.io/xvzup/knative_test:issue2
+        imagePullPolicy: Always
         command: ["uvicorn"]
-        args: ["--app-dir", "./App", "app:app", "--reload"]
+        args: ["app:app", "--reload"]
         readinessProbe:
           tcpSocket:
             port: 8000
