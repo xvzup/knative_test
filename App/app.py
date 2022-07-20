@@ -1,13 +1,22 @@
-import os
+#FASTAPI imports
+from fastapi import FastAPI, Request, File, UploadFile, Depends
+from pydantic import BaseModel
+#APP defination
+app = FastAPI()
+#Base model
+class Options (BaseModel):
+  FileName: str
+  FileDesc: str = 'Upload for demonstration'
+  #FileType: Optional[str]
 
-from flask import Flask
 
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-    target = os.environ.get('TARGET', 'World')
-    return 'Hello {}!\n'.format(target)
-
-if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
+#Using an asynchronous POST method for communication
+@app.post("/acceptdata")
+async def get_data(request: Request,options: Options):
+   
+  #Waits for the request and converts into JSON
+  result = await request.json()  
+  
+  #Prints result in cmd – verification purpose
+  print(result)
+  return result
