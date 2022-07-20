@@ -10,14 +10,6 @@ class Options (BaseModel):
   FileName: str
 
 
-async def send_nats_notification( jetstream ):
-  ack = await js.publish('bob', bytes_payload)
-  print("Writing --> ", i, " ", ack)
-  i = i + 1
-
-  await asyncio.sleep(0.2)
-
-
 #Using an asynchronous POST method for communication
 @app.post("/send_notification")
 async def get_data(request: Request,options: Options):
