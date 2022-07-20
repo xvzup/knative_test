@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import asyncio
 import nats
 import json
+import sys
 
 app = FastAPI()
 class Options (BaseModel):
@@ -27,4 +28,4 @@ async def get_data(request: Request,options: Options):
   # Close connection to nats broker
   await nc.drain()
   
-  return result
+  sys.exit()
