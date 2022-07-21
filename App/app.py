@@ -29,3 +29,9 @@ async def get_data(request: Request,options: Options):
   await nc.drain()
   
   return result
+
+
+@app.get("/hello")
+async def say_hello():
+  print("Hello!")
+  return "Hello!" 

@@ -1,0 +1,35 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: notification
+  namespace: default
+spec:
+  template:
+    metadata:
+      annotations:
+        #autoscaling.knative.dev/target-utilization-percentage: "10"
+    spec:
+      #containerConcurrency: 1
+      containers:
+      - image: ghcr.io/xvzup/knative_test:master
+        imagePullPolicy: Always
+        name: fastapi
+        ports:
+        #- containerPort: 8000
+        #  protocol: TCP
+        command: ["uvicorn"]
+        args: ["app:app", "--host", "127.0.0.1"]
+      - name: oauth2-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy
+        command: ["/bin/oauth2-proxy"]
+        args: ["--config=/etc/proxy-config/oauth2_proxy.cfg"]
+        volumeMounts:
+        - name: proxy-config
+          mountPath: /etc/proxy-config/
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+      volumes:
+      - name: proxy-config
+        secret:
+          secretName: oauth2-proxy-config
